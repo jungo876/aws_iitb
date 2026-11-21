@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+infra/deploy_output.json
+ui_shots/
+.venv/
+venv/
+.env
+*.zip

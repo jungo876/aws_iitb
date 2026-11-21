@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>KagazCheck – check scholarship documents before you apply</title>
+  <meta name="description" content="Upload photos of your Aadhaar, bank passbook, marksheet and certificates. KagazCheck finds the name, date and certificate mismatches that get scholarship and DBT applications rejected – and tells you how to fix them, in your language.">
+  <meta name="theme-color" content="#1f2a6b">
+  <meta property="og:title" content="KagazCheck – पहले जाँच, फिर apply">
+  <meta property="og:description" content="Find document mismatches that block scholarship & DBT payments before you apply.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f2a6b'/%3E%3Cpath d='M18 14h20l10 10v26H18z' fill='%23fff'/%3E%3Cpath d='M24 36l6 6 12-14' stroke='%23f59e0b' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" data-go="home" aria-label="KagazCheck home">
+      <svg viewBox="0 0 64 64" width="30" height="30" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1f2a6b"/><path d="M18 14h20l10 10v26H18z" fill="#fff"/><path d="M24 36l6 6 12-14" stroke="#f59e0b" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Kagaz<b>Check</b></span>
+    </a>
+    <nav class="topnav">
+      <a href="#insights" data-go="insights" data-i18n="nav_insights">Insights</a>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="active">EN</button>
+        <button type="button" data-lang="hi">हिं</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="app">
+    <!-- HOME -->
+    <section class="screen" id="screen-home">
+      <div class="hero">
+        <p class="eyebrow" data-i18n="hero_eyebrow">For scholarship &amp; DBT applicants</p>
+        <h1 data-i18n-html="hero_title">Your scholarship shouldn't fail because of a <span class="hl">spelling</span>.</h1>
+        <p class="lead" data-i18n="hero_lead">Photograph your Aadhaar, bank passbook, marksheet and certificates. In under a minute KagazCheck finds the mismatches that get applications rejected and payments stuck, and tells you exactly how to fix them in your language.</p>
+        <div class="cta-row">
+          <button class="btn primary big" data-go="scheme" data-i18n="cta_start">Check my documents</button>
+          <button class="btn ghost big" id="btn-sample" data-i18n="cta_sample">Try with sample documents</button>
+        </div>
+        <p class="privacy-pill">🔒 <span data-i18n="privacy_short">Photos are read in memory and never stored. Aadhaar numbers are masked.</span></p>
+      </div>
+
+      <div class="problem card">
+        <h2 data-i18n="problem_title">Why applications fail</h2>
+        <div class="mismatch-demo">
+          <div class="doc-chip"><small data-i18n="doc_aadhaar">Aadhaar card</small><b>PRI<u>Y</u>ANKA KUMARI</b></div>
+          <div class="vs">≠</div>
+          <div class="doc-chip bad"><small data-i18n="doc_bank">Bank passbook</small><b>PRI<u>&nbsp;</u>ANKA KUMARI</b></div>
+        </div>
+        <p data-i18n="problem_body">Scholarship and DBT portals match your details across documents letter by letter. One missing letter, an initial instead of a full name, an old income certificate, or an account not seeded for DBT, and the money doesn't arrive. Students usually find out months later.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step"><span class="num">1</span><h3 data-i18n="how1_t">Pick your scheme</h3><p data-i18n="how1_d">Central or state scholarship or DBT scheme.</p></div>
+        <div class="step"><span class="num">2</span><h3 data-i18n="how2_t">Snap your documents</h3><p data-i18n="how2_d">AI on AWS reads names, dates, IFSC and income.</p></div>
+        <div class="step"><span class="num">3</span><h3 data-i18n="how3_t">Get a fix-list</h3><p data-i18n="how3_d">Every problem, why it matters, and the exact steps to fix it. Listen to it in Hindi or share it on WhatsApp.</p></div>
+      </div>
+      <p class="checks-line" data-i18n="checks_line">Checks: name spelling, initials &amp; order · date of birth · gender · father's name · income limit · certificate age · IFSC · account in your own name · Aadhaar-DBT seeding</p>
+    </section>
+
+    <!-- SCHEME -->
+    <section class="screen" id="screen-scheme" hidden>
+      <div class="progress"><span class="on"></span><span></span><span></span><span></span></div>
+      <h2 data-i18n="scheme_title">Which scheme are you applying for?</h2>
+      <p class="muted" data-i18n="scheme_sub">We use it to know which documents and income limit to check.</p>
+      <div id="scheme-list" class="choice-list"></div>
+      <div id="custom-limit" class="field" hidden>
+        <label for="income-limit" data-i18n="custom_limit">Income limit for your scheme (₹ per year), if any</label>
+        <input id="income-limit" inputmode="numeric" placeholder="e.g. 250000">
+      </div>
+      <p class="fineprint" data-i18n="limit_note">Income limits shown are from scheme guidelines. Always confirm the latest limit on scholarships.gov.in or your state portal.</p>
+      <div class="actions">
+        <button class="btn ghost" data-go="home" data-i18n="back">Back</button>
+        <button class="btn primary" id="btn-scheme-next" data-i18n="next">Next</button>
+      </div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section class="screen" id="screen-docs" hidden>
+      <div class="progress"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+      <h2 data-i18n="docs_title">Add photos of your documents</h2>
+      <p class="muted" data-i18n="docs_sub">Place the document flat in good light. Make sure the name and numbers are readable.</p>
+      <div id="doc-list" class="doc-list"></div>
+      <div class="actions">
+        <button class="btn ghost" data-go="scheme" data-i18n="back">Back</button>
+        <button class="btn primary" id="btn-docs-next" data-i18n="review_details">Review details</button>
+      </div>
+    </section>
+
+    <!-- REVIEW -->
+    <section class="screen" id="screen-review" hidden>
+      <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span></span></div>
+      <h2 data-i18n="review_title">Is this what your documents say?</h2>
+      <p class="muted" data-i18n="review_sub">Correct anything we read wrongly. Type it exactly as printed, mistakes included.</p>
+      <div id="review-list"></div>
+      <div class="actions">
+        <button class="btn ghost" data-go="docs" data-i18n="back">Back</button>
+        <button class="btn primary" id="btn-check" data-i18n="run_check">Find problems</button>
+      </div>
+    </section>
+
+    <!-- REPORT -->
+    <section class="screen" id="screen-report" hidden>
+      <div class="progress"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+      <div id="report"></div>
+    </section>
+
+    <!-- INSIGHTS -->
+    <section class="screen" id="screen-insights" hidden>
+      <h2 data-i18n="insights_title">What is blocking students?</h2>
+      <p class="muted" data-i18n="insights_sub">Live, anonymous counts from every check run on KagazCheck. No names, numbers or photos are stored, only which problems were found. Colleges and scholarship cells can use this to run targeted help desks.</p>
+      <div id="insights"></div>
+      <div class="actions"><button class="btn primary" data-go="scheme" data-i18n="cta_start">Check my documents</button></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p data-i18n="footer_privacy">Privacy: photos are processed in memory on AWS (Mumbai region) and deleted immediately. We store only anonymous counts of problem types.</p>
+    <p data-i18n="footer_disclaimer">KagazCheck is an independent student project. It is not affiliated with UIDAI, NSP or any government department. Always follow your scheme's official guidelines.</p>
+    <p class="built">Built on AWS · Bedrock · Textract · Translate · Polly · Lambda · DynamoDB · CloudFront</p>
+  </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
